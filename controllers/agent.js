@@ -11,8 +11,6 @@ exports.registerAgent = (req, res, next) => {
         numAgent: req.body.numAgent,
         password: hash,
       });
-      console.log(agent._id);
-
       agent
         .save()
         .then(() => {

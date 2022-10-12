@@ -29,11 +29,12 @@ exports.getAllIntervention = (req, res, next) => {
 };
 
 exports.deleteIntervention = (req, res, next) => {
-  Intervention.deleteOne({ _id: req.params.id })
-    .then(() => {
-      res.status(200).json({ success: "INTERVENTION DELETED" }); // 200 code de succès
+  Intervention.findOne({ _id: req.params.id })
+    .then((intervention) => {
+      if (intervention.agentId === req.auth.agentId) {
+        return res.status(200).json({ success: "INTERVENTION DELETED" }); // 200 code de succès
+      }
+      return res.status(500).json({ message: "MAUVAIS USER" }); // 200 code de succès
     })
-    .catch((err) =>
-      res.status(400).json({ message: "ERROR INTERVENTION NOT DELETED" })
-    );
+    .catch((err) => res.status(400).json({ err }));
 };

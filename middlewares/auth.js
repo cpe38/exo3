@@ -11,8 +11,6 @@ module.exports = (req, res, next) => {
       agentId: agentId,
     };
 
-    console.log(req.auth);
-
     next();
   } catch (error) {
     res.status(401).json({ error });
