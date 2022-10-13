@@ -1,0 +1,31 @@
+<%- include ('../partials/head'); %>
+
+<main class="container">
+  <%- include ('../partials/header'); %>
+
+  <div>
+    <h1>BIENVENUE !</h1>
+    <p>Voici la liste des intervention</p>
+    <table>
+      <thead>
+        <tr>
+          <th>N° Agent</th>
+          <th>Motif</th>
+          <th>Image</th>
+          <th>Date</th>
+          <th>Lieu</th>
+        </tr>
+      </thead>
+      <% interventions.forEach(function(intervention) { %>
+      <tr>
+        <td><%= intervention.agentId %></td>
+        <td><%= intervention.motif %></td>
+        <td><img src="<%=intervention.image %>" /></td>
+        <td><%= intervention.date %></td>
+        <td><%= intervention.lieu %></td>
+        <% }); %>
+      </tr>
+    </table>
+  </div>
+</main>
+<%- include ('../partials/footer'); %>

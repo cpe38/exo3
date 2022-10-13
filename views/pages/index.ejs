@@ -1,0 +1,17 @@
+<%- include ('../partials/head'); %>
+
+<main class="container">
+  <%- include ('../partials/header'); %>
+
+  <div class="jumbotron">
+    <h1>BIENVENUE</h1>
+    <p>Voici la liste</p>
+
+    <ul>
+      <% things.forEach(function(thing) { %>
+      <li><strong><%= thing.title %></strong> au prix de <%= thing.price%>€</li>
+      <% }); %>
+    </ul>
+  </div>
+</main>
+<%- include ('../partials/footer'); %>

@@ -1,12 +1,17 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const path = require("path");
 const stuffRoutes = require("./routes/stuff");
 const userRoutes = require("./routes/user");
 const agentRoutes = require("./routes/agent");
+const exampleRoutes = require("./routes/example");
 const interventionRoutes = require("./routes/intervention");
+const expressOasGenerator = require("express-oas-generator");
 
 const app = express();
+expressOasGenerator.init(app);
 app.use(express.json()); // Equivalent de bodyparser
+app.set("view engine", "ejs");
 
 mongoose
   .connect(
@@ -36,5 +41,7 @@ app.use("/api/stuff", stuffRoutes);
 app.use("/api/auth", userRoutes);
 app.use("/api/agent", agentRoutes);
 app.use("/api/intervention", interventionRoutes);
+app.use("/example", exampleRoutes);
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 module.exports = app;

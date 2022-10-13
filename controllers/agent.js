@@ -38,8 +38,7 @@ exports.loginAgent = (req, res, next) => {
               .json({ message: "Paire num/grade incorect 2" });
           }
           res.status(200).json({
-            agentId: agent._id,
-            token: jwt.sign({ agentId: agent._id }, "RANDOM_SECRET", {
+            token: jwt.sign({ numAgent: agent.numAgent }, "RANDOM_SECRET", {
               expiresIn: "24h",
             }),
           });
@@ -50,13 +49,13 @@ exports.loginAgent = (req, res, next) => {
 };
 
 exports.updateAgent = (req, res, next) => {
-  Agent.findOne({ _id: req.auth.agentId })
+  Agent.findOne({ numAgent: req.auth.numAgent })
     .then((agent) => {
       if (!agent) {
         return res.status(401).json({ message: "MAUVAIS AGENT" });
       }
       Agent.updateOne(
-        { _id: req.auth.agentId },
+        { numAgent: req.auth.numAgent },
         { grade: req.body.grade }
       ).then(() => {
         res.status(200).json({ success: "UPDATED AGENT" });
